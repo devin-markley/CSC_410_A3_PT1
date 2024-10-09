@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #define SIZE 13
-#define NUM_THREADS 4
+#define NUM_THREADS 7
 
 long long arr[SIZE];
 long long totalSum = 0;
