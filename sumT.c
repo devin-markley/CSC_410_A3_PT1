@@ -3,11 +3,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define SIZE 1000000
+#define SIZE 12
 #define NUM_THREADS 4
 
 long long arr[SIZE];
 long long totalSum = 0;
+pthread_mutex_t lock;
 
 void* sumPart(void* arg) {
     int thread_id = *(int*)arg;
@@ -18,10 +19,12 @@ void* sumPart(void* arg) {
     long long temp;
     // Calculate partial sums
     for (int i = start; i < end; i++) {
+        pthread_mutex_lock(&lock);
         temp = totalSum;
         temp += arr[i];
-        // sleep(rand()%2);
+        sleep(rand()%2);
         totalSum = temp;
+        pthread_mutex_unlock(&lock);
     }
 
     pthread_exit(NULL);
@@ -33,7 +36,9 @@ int main() {
         arr[i] = i + 1; 
     }
 
-    // srand(time(NULL));
+    srand(time(NULL));
+    pthread_mutex_init(&lock, NULL);
+
     pthread_t threads[NUM_THREADS];
     int thread_ids[NUM_THREADS];
 
