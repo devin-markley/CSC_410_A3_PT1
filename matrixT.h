@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #define N 4  // Size of the matrix
-#define NUM_THREADS 5  // Number of threads
+#define NUM_THREADS 7  // Number of threads
 pthread_mutex_t mutex;
 
 int **A, **B, **C;  // Global matrices
